@@ -1,9 +1,7 @@
-"use client";
 import { useEffect } from "react";
-// import styles from
 import Image from "next/image";
+import styles from "./page.module.scss";
 import Lenis from "@studio-freight/lenis";
-import { images } from "@/next.config";
 
 const Images = [
   "1.jpg",
@@ -49,10 +47,26 @@ export default function Home() {
       <div className={styles.gallery}>
         <div className={styles.galleryWrapper}>
           <Column Images={[images[0], images[1], images[2]]} />
-          <Column Images={[images[0], images[1], images[2]]} />
-          <Column Images={[images[0], images[1], images[2]]} />
+          <Column Images={[images[3], images[4], images[5]]} />
+          <Column Images={[images[6], images[7], images[8]]} />
+          <Column Images={[images[9], images[10], images[11]]} />
         </div>
       </div>
+      <div className={styles.spacer}></div>
     </main>
   );
 }
+
+const Column = ({ images }) => {
+  return (
+    <div className={styles.column}>
+      {images.map((src, i) => {
+        return (
+          <div key={i} className={styles.imageContainer}>
+            <Image src={`./public/${src}`} alt="image" fill />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
