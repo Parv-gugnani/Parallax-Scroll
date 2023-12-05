@@ -58,6 +58,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <TextComponent />
       <div className={styles.spacer}></div>
       <div ref={gallery} className={styles.gallery}>
         <Column images={[images[0], images[1], images[2]]} y={y} />
@@ -65,7 +66,7 @@ export default function Home() {
         <Column images={[images[6], images[7], images[8]]} y={y3} />
         <Column images={[images[9], images[10], images[11]]} y={y4} />
       </div>
-      <TextComponent />
+
       <div className={styles.spacer}></div>
     </main>
   );

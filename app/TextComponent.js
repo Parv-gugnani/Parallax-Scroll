@@ -9,7 +9,7 @@ const TextComponent = () => {
       <p>This is how does parallax scrolling look like</p>
       <button
         className="button"
-        target="_blank"
+        target=""
         onClick={() =>
           (window.location.href =
             "https://github.com/Parv-gugnani/Parallax-Scroll")
