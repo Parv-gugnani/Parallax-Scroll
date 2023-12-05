@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import Image from "next/image";
 import Lenis from "@studio-freight/lenis";
 import { useTransform, useScroll, motion } from "framer-motion";
+import TextComponent from "./TextComponent";
 
 const images = [
   "1.jpg",
@@ -64,6 +65,7 @@ export default function Home() {
         <Column images={[images[6], images[7], images[8]]} y={y3} />
         <Column images={[images[9], images[10], images[11]]} y={y4} />
       </div>
+      <TextComponent />
       <div className={styles.spacer}></div>
     </main>
   );
