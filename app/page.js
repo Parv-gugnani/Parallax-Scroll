@@ -1,9 +1,12 @@
-import { useEffect } from "react";
-import Image from "next/image";
+"use client";
+//
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
+import Image from "next/image";
 import Lenis from "@studio-freight/lenis";
+import { useTransform, useScroll, motion } from "framer-motion";
 
-const Images = [
+const images = [
   "1.jpg",
 
   "2.jpg",
@@ -30,6 +33,20 @@ const Images = [
 ];
 
 export default function Home() {
+  const gallery = useRef(null);
+  const [dimension, setDimension] = useState({ width: 0, height: 0 });
+
+  const { scrollYProgress } = useScroll({
+    target: gallery,
+    offset: ["start end", "end start"],
+  });
+  const { height } = dimension;
+  const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
+
+  //
   useEffect(() => {
     const lenis = new Lenis();
 
@@ -38,7 +55,17 @@ export default function Home() {
       requestAnimationFrame(raf);
     };
 
+    const resize = () => {
+      setDimension({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", resize);
     requestAnimationFrame(raf);
+    resize();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   return (
@@ -57,16 +84,16 @@ export default function Home() {
   );
 }
 
-const Column = ({ images }) => {
+const Column = ({ images, y }) => {
   return (
-    <div className={styles.column}>
+    <motion.div className={styles.column} style={{ y }}>
       {images.map((src, i) => {
         return (
           <div key={i} className={styles.imageContainer}>
-            <Image src={`./public/${src}`} alt="image" fill />
+            <Image src={`/images/${src}`} alt="image" fill />
           </div>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
